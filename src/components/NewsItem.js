@@ -14,6 +14,7 @@ export class NewsItem extends Component {
               href={newsUrl}
               target="_blank"
               className="btn btn-sm btn-primary"
+              rel="noreferrer"
             >
               Read More
             </a>
