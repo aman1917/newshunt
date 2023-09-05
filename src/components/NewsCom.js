@@ -13,16 +13,20 @@ export class NewsCom extends Component {
 
   async componentDidMount() {
     let url =
-      "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9f2b11791fe24008aaa27cbddb495c58";
+      "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9f2b11791fe24008aaa27cbddb495c58&pageSize=20";
     let data = await fetch(url);
     let parseData = await data.json();
-    this.setState({ articles: parseData.articles });
+    this.setState({
+      articles: parseData.articles,
+      totalResults: parseData.totalResults,
+    });
   }
 
   handlePrevClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9f2b11791fe24008aaa27cbddb495c58&page=${
+    console.log("previous");
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9f2b11791fe24008aaa27cbddb495c58&page=${
       this.state.page - 1
-    }`;
+    }&pageSize=20`;
     let data = await fetch(url);
     let parseData = await data.json();
     this.setState({
@@ -32,16 +36,20 @@ export class NewsCom extends Component {
   };
 
   handleNextClick = async () => {
-    let url = `https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=9f2b11791fe24008aaa27cbddb495c58&page=${
-      this.state.page + 1
-    }`;
-    let data = await fetch(url);
-    let parseData = await data.json();
-    this.setState({
-      page: this.state.page + 1,
-      articles: parseData.articles,
-    });
-    console.log(this.state.page);
+    console.log("next");
+    if (this.state.page + 1 > Math.ceil(this.totalResults / 20)) {
+    } else {
+      let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=9f2b11791fe24008aaa27cbddb495c58&page=${
+        this.state.page + 1
+      }&pageSize=20`;
+      let data = await fetch(url);
+      let parseData = await data.json();
+      this.setState({
+        page: this.state.page + 1,
+        articles: parseData.articles,
+        totalResults: this.state.totalResults,
+      });
+    }
   };
 
   render() {
@@ -69,7 +77,7 @@ export class NewsCom extends Component {
           onClick={this.handlePrevClick}
         >
           <button
-            disabled={this.state.page <= 1}
+            disabled={this.state.page < 1}
             type="button"
             className="btn btn-primary"
           >
