@@ -14,14 +14,19 @@ export class NewsCom extends Component {
     category: PropTypes.string,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       loading: false,
       page: 1,
     };
+    document.title = `${this.CapFirst(this.props.category)} -NewsHunts`;
   }
+
+  CapFirst = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
 
   async updateState() {
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9f2b11791fe24008aaa27cbddb495c58&page=${this.state.page}&pageSize=${this.props.pageSize}`;
@@ -40,14 +45,12 @@ export class NewsCom extends Component {
   }
 
   handlePrevClick = async () => {
-    // console.log("previous");
-    this.setState({ page: this.parseData.page - 1 });
+    this.setState({ page: this.state.page - 1 });
     this.updateState();
   };
 
   handleNextClick = async () => {
-    // console.log("next");
-    this.setState({ page: this.parseData.page + 1 });
+    this.setState({ page: this.state.page + 1 });
     this.updateState();
   };
 
@@ -55,7 +58,7 @@ export class NewsCom extends Component {
     return (
       <div className="container my-2 ">
         <h2 className="text-center" style={{ margin: "35px 0px" }}>
-          NewsHunts- Top Headlines
+          NewsHunts- Top {this.CapFirst(this.props.category)} Headlines
         </h2>
         <div className="row my-2">
           {!this.state.loading &&
@@ -72,27 +75,27 @@ export class NewsCom extends Component {
                     imageUrl={element.urlToImage ? element.urlToImage : null}
                     author={element.author ? element.author : "Unknown"}
                     date={element.publishedAt}
+                    source={element.source.name}
+                    newsUrl={element.url}
                   />
                 </div>
               );
             })}
           ;
         </div>
-        <div
-          className="container d-flex justify-content-between"
-          onClick={this.handlePrevClick}
-        >
+        <div className="container d-flex justify-content-between">
           <button
             disabled={this.state.page <= 1}
             type="button"
             className="btn btn-primary"
+            onClick={this.handlePrevClick}
           >
             &larr; Previous
           </button>
           <button
             disabled={
               this.state.page + 1 >
-              Math.ceil(this.totalResults / this.props.pageSize)
+              Math.ceil(this.state.totalResults / this.props.pageSize)
             }
             type="button"
             className="btn btn-primary mx-3"
