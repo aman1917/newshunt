@@ -7,7 +7,7 @@ import LoadingBar from "react-top-loading-bar";
 
 export class App extends Component {
   pageSize = 15;
-
+  apiKey = process.env.REACT_APP_NEWS_API;
   state = {
     progress: 0,
   };
@@ -32,6 +32,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="general"
                   country="in"
                   pageSize={this.pageSize}
@@ -45,6 +46,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="business"
                   country="in"
                   pageSize={this.pageSize}
@@ -58,6 +60,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="entertainment"
                   country="in"
                   pageSize={this.pageSize}
@@ -71,6 +74,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="health"
                   country="in"
                   pageSize={this.pageSize}
@@ -84,6 +88,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="science"
                   country="in"
                   pageSize={this.pageSize}
@@ -97,6 +102,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="sports"
                   country="in"
                   pageSize={this.pageSize}
@@ -110,6 +116,7 @@ export class App extends Component {
               element={
                 <NewsCom
                   setProgress={this.setProgress}
+                  apiKey={this.apiKey}
                   key="technology"
                   country="in"
                   pageSize={this.pageSize}
