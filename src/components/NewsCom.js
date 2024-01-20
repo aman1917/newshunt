@@ -7,7 +7,7 @@ import Loading from "./Loading";
 const NewsCom = (props) => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState([]);
+  const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState([]);
 
   const CapFirst = (string) => {
