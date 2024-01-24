@@ -57,7 +57,7 @@ const NewsCom = (props) => {
     setTotalResults(parseData.totalResults);
   };
 
-  console.log(articles.length);
+  // console.log(articles.length);
   return (
     <>
       <h2
